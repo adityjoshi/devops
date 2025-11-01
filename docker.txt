@@ -1,0 +1,58 @@
+Docker Container - A docker container is nothing but an running instance of an image.
+
+Docker Image - It is nothing but the blueprint of the app. It contains -:
+    - the base os i.e. ubantu,go, python etc
+    - the dependencies and libraries that are needed 
+    - application code
+    - command that runs the container
+
+Every image is made up of layers, which are like a stack of file system changes.
+
+FROM python:3.12-slim     ← layer 1 (base)
+COPY app.py .              ← layer 2 (adds your file)
+RUN pip install flask      ← layer 3 (installs dependencies)
+CMD ["python", "app.py"]   ← layer 4 (defines what to run)
+
+Each layer is cached, if nothing is changed docker uses the same for the faster build instead of re-building.
+
+
+
+
+2. Dockerfile 
+
+- It is the set of instructions that we provide to docker to tell how to build the Image.
+- The instructions are executed top to bottom
+
+Instructions                  Meaning 
+
+FROM                          Base image must always be the first
+WORKDIR                       set the working dir inside the container
+COPY                          copy files form your host to the container 
+RUN                           execute the command during the build
+CMD                           set the default command when the container starts
+EXPOSE                        inform the docker to which port the container will listen to 
+ENV                           set the env variables inside the container
+
+
+
+
+
+
+3. Build Layes and Context
+
+docker build -t my-app .
+  
+    - the dot in the command takes all files from your current directory and sent to the docker daemon.
+    - it reads the instructions from the dockerfile and executes as a new layer
+
+
+
+
+
+4. Difference betweent the cmd and entrypoint
+  
+    - entrypoint : it used when something is fixed and always run and doesn't change often. Like a python interprator will always run first before the actual python file.
+    - cmd : it is used where we set some dummy command that can be overridden in the future too.
+
+
+
