@@ -44,6 +44,8 @@ docker build -t my-app .
   
     - the dot in the command takes all files from your current directory and sent to the docker daemon.
     - it reads the instructions from the dockerfile and executes as a new layer
+    -	-t gives the image a tag (my-python-app)
+	•	- . means “build using the current directory (where Dockerfile is)”
 
 
 
